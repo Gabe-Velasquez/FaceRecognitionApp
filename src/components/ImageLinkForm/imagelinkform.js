@@ -1,4 +1,5 @@
 import React from "react";
+import './imagelinkform.css';
 
 const ImageLinkForm = () => {
     return (
@@ -7,8 +8,8 @@ const ImageLinkForm = () => {
                 {'This cute little robot can detect faces in pictures. Show a picture and watch the magic happen.'}
             </p>
             <div className='center'>
-            <div className='center pa4 br3 shadow-5'>
-            <input className='f3 pa3 w-70 center' type='text' />
+            <div className='form center pa4 br3 shadow-5'>
+            <input className='f4 pa3 w-70 center' type='text' />
             <button className='w-30 grow f4 link ph3 pv2 dib white bg-light-purple'>Detect</button>
             </div>
             </div>
