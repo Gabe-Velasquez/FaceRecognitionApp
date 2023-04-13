@@ -97,7 +97,7 @@ class App extends Component {
   onButtonSubmit = () => { 
     this.setState({imageUrl: this.state.input})
     // app.models.predict('face-detection', this.state.input)
-    fetch("https://api.clarifai.com/v2/models/" + 'face-dectection' + "/outputs", returnClarifaiRequestOptions(this.state.input))
+    fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", returnClarifaiRequestOptions(this.state.input))
     .then(response => response.json())
     .then(response => {
       console.log('meow', response)
@@ -126,7 +126,7 @@ class App extends Component {
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
-      <FaceRecognition imageUrl={this.state.imageUrl} />
+      <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
     </div>
   );
   }
