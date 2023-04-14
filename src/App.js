@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import Clarifai from 'clarifai';
+import Clarifai from 'clarifai';
 import Navigation from './components/navigation/navigation';
-import FaceRecognition from './components/facerecognition/FaceRecognition';
+import FaceRecognition from './components/facerecognition/FaceRecognition.js';
+import Facerecognition from './components/facerecognition/Facerecognition.css';
 import Logo from './components/logo/logo';
 import ImageLinkForm from './components/ImageLinkForm/imagelinkform.js';
 import Rank from './components/Rank/Rank';
@@ -9,12 +10,9 @@ import ParticlesBg from 'particles-bg';
 import 'tachyons';
 import './App.css';
 
-// const app = new Clarifai.App({
-//   apiKey: '66e66da1b0c145848846e43a86159d84'
-//  });
-//  const setupClarifai = (imageUrl) =>{
-
-//  }
+const app = new Clarifai.App({
+  apiKey: '66e66da1b0c145848846e43a86159d84'
+ });
 
      ///////////////////////////////////////////////////////////////////////////////////////////////////
      // In this section, we set the user authentication, user and app ID, model details, and the URL
@@ -95,27 +93,27 @@ class App extends Component {
   }
 
   onButtonSubmit = () => { 
-    this.setState({imageUrl: this.state.input})
-    // app.models.predict('face-detection', this.state.input)
-    fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", returnClarifaiRequestOptions(this.state.input))
-    .then(response => response.json())
-    .then(response => {
-      console.log('meow', response)
-      if (response){
-        fetch('https://localhost:3000/image', {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            id:this.state.user.id
+    this.setState({imageUrl: this.state.input}); 
+    app.models.predict('face-detection', this.state.input)
+      .then(response => {
+        console.log('hi', response)
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
           })
-        })
-        .then(response => response.json())
-        .then(count => {
-          this.setState(Object.assign(this.state.user, {entries: count}))
-        })
-      }
-    })
-    
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count}))
+            })
+
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
