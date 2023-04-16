@@ -111,7 +111,7 @@ class App extends Component {
       .catch((err) => console.log(err))
   }
 
-  onRouteChange = () = {
+  onRouteChange = () => {
     this.setState({route: 'home'});
   }
 
