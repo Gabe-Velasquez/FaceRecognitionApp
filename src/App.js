@@ -70,7 +70,7 @@ class App extends Component {
   }
 
   loadUser = (data) => {
-    this.setState({user:{
+    this.setState({user: {
       id: data.id,
       name: data.name,
       email: data.email,
@@ -119,11 +119,11 @@ class App extends Component {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              id: this.state.user_id
+              id: this.state.user.id
             })
           })
-            .then((response) => response.json())
-            .then((count) => {
+            .then(response => response.json())
+            .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count }))
             })
         }
