@@ -116,7 +116,7 @@ class App extends Component {
       .then(response => {
         console.log("meow", response)
         if (response) {
-          fetch('https://face-recognition-back-end-jxur.onrender.com', {
+          fetch('https://face-recognition-back-end-jxur.onrender.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
